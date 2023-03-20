@@ -1,0 +1,72 @@
+opentracing:
+  jaeger:
+    http-sender:
+      url: http://localhost:14268/api/traces
+    udp-sender:
+      port: '6831'
+      host: localhost
+    log-spans: 'true'
+
+
+animal:
+  service:
+    prefix:
+      url: http://localhost:9000
+
+server:
+  port: '8080'
+scientist:
+  service:
+    prefix:
+      url: http://localhost:8090
+
+logging:
+  level:
+    io:
+      jaegertracing: DEBUG
+
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 500000
+        readTimeout: 500000
+        loggerLevel: basic
+
+ribbon:
+  eureka:
+    enabled: true
+
+# See https://github.com/Netflix/Hystrix/wiki/Configuration
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          strategy: SEMAPHORE
+          # See https://github.com/spring-cloud/spring-cloud-netflix/issues/1330
+          thread:
+            timeoutInMilliseconds: 15000
+        circuitBreaker:
+          requestVolumeThreshold: 200
+          leepWindowInMilliseconds: 5000
+          errorThresholdPercentage: 50
+  shareSecurityContext: true
+  threadpool:
+    default:
+      coreSize: 200
+      maxQueueSize: 200
+      queueSizeRejectionThreshold: 160
+
+
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: name-generator

@@ -1,0 +1,13 @@
+animal:
+  service:
+    prefix:
+      url: http://animal-name-service:9000
+scientist:
+  service:
+    prefix:
+      url: http://scientist-name-service:8090
+
+opentracing:
+  jaeger:
+    udp-sender:
+      host: jaeger
