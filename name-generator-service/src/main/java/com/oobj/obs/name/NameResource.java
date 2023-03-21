@@ -24,7 +24,7 @@ public class NameResource {
 		String animal = animalServiceClient.randomAnimalName();
 		String scientist = scientistServiceClient.randomScientistName();
 		String name = toKebabCase(scientist) + "-" + toKebabCase(animal);
-		log.debug("Término da requisição");
+		log.debug("Término da requisição [{}] - [{}]", animal, scientist);
 		return name;
 	}
 

@@ -7,18 +7,18 @@ opentracing:
       host: localhost
     log-spans: 'true'
 
+server:
+  port: '8080'
+
+scientist:
+  service:
+    prefix:
+      url: http://localhost:8090
 
 animal:
   service:
     prefix:
       url: http://localhost:9000
-
-server:
-  port: '8080'
-scientist:
-  service:
-    prefix:
-      url: http://localhost:8090
 
 feign:
   hystrix:
@@ -66,8 +66,8 @@ spring:
     name: name-generator
 
 logging:
-  file:
-    name: /dev/github/lab-observability/logs/ms-name.log # C:\dev\github\lab-observability\logs\ms-name.log
   level:
     io:
       jaegertracing: DEBUG
+#  file:
+#    name: /dev/github/lab-observability/logs/ms-name.log # C:\dev\github\lab-observability\logs\ms-name.log

@@ -21,5 +21,5 @@ logging:
   level:
     io:
       jaegertracing: DEBUG
-  file:
-    name: /dev/github/lab-observability/logs/ms-scientis.log
+#  file:
+#    name: /dev/github/lab-observability/logs/ms-scientis.log

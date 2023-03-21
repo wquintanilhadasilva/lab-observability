@@ -33,7 +33,7 @@ public class AnimalNameResource {
 	public String name(@RequestHeader HttpHeaders headers) {
 		log.debug("Obtendo um animal");
 		String name = animalNames.get(random.nextInt(animalNames.size()));
-		log.debug("Retornando um animal");
+		log.debug("Animal retornado: [{}]", name);
 		return name;
 	}
 

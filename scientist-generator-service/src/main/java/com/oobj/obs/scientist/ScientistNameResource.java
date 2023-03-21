@@ -35,7 +35,7 @@ public class ScientistNameResource {
 	public String name(@RequestHeader HttpHeaders headers) {
 		log.debug("Obtendo um Cientista");
 		String name = scientistsNames.get(random.nextInt(scientistsNames.size()));
-		log.debug("Retornando um Cientista");
+		log.debug("Cientista retornado: [{}]", name);
 		return name;
 	}
 
