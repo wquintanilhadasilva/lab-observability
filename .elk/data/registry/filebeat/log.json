@@ -1,0 +1,4 @@
+{"op":"set","id":1}
+{"k":"filebeat::logs::native::327680-448801-1923255286","v":{"source":"C:\\dev\\github\\lab-observability\\logs\\ms-scientis.log","offset":0,"type":"log","FileStateOS":{"idxlo":448801,"vol":1923255286,"idxhi":327680},"identifier_name":"native","id":"native::327680-448801-1923255286","timestamp":[280702481106776,1679407136],"ttl":-1,"prev_id":""}}
+{"op":"set","id":2}
+{"k":"filebeat::logs::native::327680-448801-1923255286","v":{"prev_id":"","offset":0,"ttl":-1,"FileStateOS":{"vol":1923255286,"idxhi":327680,"idxlo":448801},"id":"native::327680-448801-1923255286","source":"C:\\dev\\github\\lab-observability\\logs\\ms-scientis.log","timestamp":[280702481106776,1679407136],"type":"log","identifier_name":"native"}}
