@@ -40,9 +40,7 @@ filebeat.inputs:
 
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
-    - c:\dev\github\lab-observability\logs\ms-scientis.log
     - c:\dev\github\lab-observability\logs\ms-name.log
-    - c:\dev\github\lab-observability\logs\ms-animal.log
     
 - type: log
 
@@ -212,6 +210,8 @@ output.elasticsearch:
   hosts: ["localhost:9200"]
   protocol: "http"
   index: "lab-%{[fields.type]:other}-%{+yyyy.MM.dd}"
+  username: "elastic"
+  password: "changeme"
 
   # Protocol - either `http` (default) or `https`.
   #protocol: "https"
