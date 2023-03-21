@@ -16,3 +16,10 @@ spring:
 
   application:
     name: scientist-generator
+
+logging:
+  level:
+    io:
+      jaegertracing: DEBUG
+  file:
+    name: /dev/github/lab-observability/logs/ms-scientis.log

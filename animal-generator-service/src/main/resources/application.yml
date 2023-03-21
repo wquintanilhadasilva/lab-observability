@@ -16,3 +16,10 @@ spring:
 
   application:
     name: animal-generator
+
+logging:
+  level:
+    io:
+      jaegertracing: DEBUG
+  file:
+    name: /dev/github/lab-observability/logs/ms-animal.log
