@@ -23,24 +23,11 @@
     </appender>
 
     <appender name="ELASTIC" class="com.internetitem.logback.elasticsearch.ElasticsearchAppender">
-<!--        <url>${ES_HOSTS:elastic:changeme@localhost:9000}</url>-->
-<!--        <url>http://elastic:changeme@localhost:9200/_bulk</url>-->
         <url>${elkProtocol}://${elkUser}:${elkPwd}@${elkHost}:${elkPort}/_bulk</url>
         <type>tester</type>
-        <index>lab-animal-%date{yyyy-MM-dd}</index>
+        <index>lab-name-%date{yyyy-MM-dd}</index>
         <loggerName>es-logger</loggerName> <!-- optional -->
         <errorLoggerName>es-error-logger</errorLoggerName> <!-- optional -->
-        <connectTimeout>30000</connectTimeout> <!-- optional (in ms, default 30000) -->
-        <errorsToStderr>false</errorsToStderr> <!-- optional (default false) -->
-        <includeCallerData>false</includeCallerData> <!-- optional (default false) -->
-        <logsToStderr>false</logsToStderr> <!-- optional (default false) -->
-        <maxQueueSize>104857600</maxQueueSize> <!-- optional (default 104857600) -->
-        <maxRetries>3</maxRetries> <!-- optional (default 3) -->
-        <readTimeout>30000</readTimeout> <!-- optional (in ms, default 30000) -->
-        <sleepTime>250</sleepTime> <!-- optional (in ms, default 250) -->
-        <rawJsonMessage>false</rawJsonMessage> <!-- optional (default false) -->
-        <includeMdc>false</includeMdc> <!-- optional (default false) -->
-        <maxMessageSize>-1</maxMessageSize> <!-- optional (default -1 -->
         <authentication class="com.internetitem.logback.elasticsearch.config.BasicAuthentication" /> <!-- optional -->
         <properties>
             <property>
@@ -51,10 +38,6 @@
                 <name>service</name>
                 <value>${applicationName}</value>
             </property>
-<!--            <property>-->
-<!--                <name>modulo</name>-->
-<!--                <value>all</value>-->
-<!--            </property>-->
             <property>
                 <name>host</name>
                 <value>${HOSTNAME}</value>
@@ -85,16 +68,14 @@
         </headers>
     </appender>
 
-
     <root level="INFO">
         <appender-ref ref="SAVE-TO-FILE" />
         <appender-ref ref="STDOUT" />
-<!--        <appender-ref ref="ELASTIC" />-->
     </root>
 
     <logger name="org.springframework.web" level="DEBUG"/>
 
-    <logger name="com.oobj.obs.animal" additivity="false" level="DEBUG">
+    <logger name="com.oobj.obs.name" additivity="false" level="DEBUG">
         <appender-ref ref="SAVE-TO-FILE" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="ELASTIC" />

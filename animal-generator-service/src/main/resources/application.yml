@@ -26,4 +26,8 @@ logging:
 
 application:
   elk:
-    url: ${ES_HOSTS:http://elastic:changeme@localhost:9200/_bulk}
+    protocol: ${ES_PROTOCOL:http}
+    url: ${ES_HOST:localhost}
+    port: ${ES_PORT:9200}
+    user: ${ES_USER:elastic}
+    pwd: ${ES_PWD:changeme}

@@ -183,7 +183,7 @@ setup.template.pattern: "lab-%{[fields.type]:other}-*"
 # ---------------------------- Elasticsearch Output ----------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: '${ES_HOSTS:localhost:9200}'
+  hosts: '${ES_HOST:localhost:9200}'
   protocol: '${ES_PROTOCOL:http}'
   index: "lab-%{[fields.type]:other}-%{+yyyy.MM.dd}"
   username: '${ES_USERNAME:elastic}'

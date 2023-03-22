@@ -71,3 +71,11 @@ logging:
       jaegertracing: DEBUG
 #  file:
 #    name: /dev/github/lab-observability/logs/ms-name.log # C:\dev\github\lab-observability\logs\ms-name.log
+
+application:
+  elk:
+    protocol: ${ES_PROTOCOL:http}
+    url: ${ES_HOST:localhost}
+    port: ${ES_PORT:9200}
+    user: ${ES_USER:elastic}
+    pwd: ${ES_PWD:changeme}
