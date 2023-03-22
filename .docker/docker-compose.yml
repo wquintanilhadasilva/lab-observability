@@ -30,12 +30,13 @@ services:
     #   - filebeat -e -v -c ./filebeat.yml
     env_file:
       - ./elk.env
-    environment:
+      - ./jgr.env
+    # environment:
       # - ES_HOST=es01:9200
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   name-name-service:
     image: im-name-gen
@@ -44,14 +45,15 @@ services:
       - 8080:8080
     env_file:
       - ./elk.env
+      - ./jgr.env
     environment:
       # - ES_HOST=es01:9200
       - SCIENTIST_SERVICE_PREFIX_URL=http://scientist-name-service:8090
       - ANIMAL_SERVICE_PREFIX_URL=http://animal-name-service:9000
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   scientist-name-service:
     image: im-scientist-gen
@@ -60,12 +62,13 @@ services:
       - 8090:8090
     env_file:
       - ./elk.env
-    environment:
+      - ./jgr.env
+    # environment:
       # - ES_HOST=es01:9200
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   jaeger:
     image: jaegertracing/all-in-one:1.25
