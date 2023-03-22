@@ -1,26 +1,5 @@
 version: "3.4"
 services:
-  # animal-name-service:
-  #   image: com.example/animal-name-service:0.1.0
-  #   restart: on-failure
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=prod
-  #     - SPRING_APPLICATION_NAME=animal-name-service
-  # scientist-name-service:
-  #   image: com.example/scientist-name-service:0.1.0
-  #   restart: on-failure
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=prod
-  #     - SPRING_APPLICATION_NAME=scientist-name-service
-  # name-generator-service:
-  #   image: com.example/name-generator-service:0.1.0
-  #   restart: on-failure
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=prod
-  #     - SPRING_APPLICATION_NAME=name-generator-service
-  #   ports:
-  #     - "8080:8080"
-
   animal-name-service:
     image: im-animal-gen
     container_name: cnt-animal
@@ -31,12 +10,6 @@ services:
     env_file:
       - ./elk.env
       - ./jgr.env
-    # environment:
-      # - ES_HOST=es01:9200
-      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   name-name-service:
     image: im-name-gen
@@ -47,13 +20,8 @@ services:
       - ./elk.env
       - ./jgr.env
     environment:
-      # - ES_HOST=es01:9200
       - SCIENTIST_SERVICE_PREFIX_URL=http://scientist-name-service:8090
       - ANIMAL_SERVICE_PREFIX_URL=http://animal-name-service:9000
-      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   scientist-name-service:
     image: im-scientist-gen
@@ -63,12 +31,6 @@ services:
     env_file:
       - ./elk.env
       - ./jgr.env
-    # environment:
-      # - ES_HOST=es01:9200
-      # - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      # - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      # - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      # - OPENTRACING_JAEGER_LOG_SPANS=true
 
   jaeger:
     image: jaegertracing/all-in-one:1.25
@@ -109,6 +71,3 @@ services:
         - es01
       env_file:
           - ./kb.env
-      # environment:
-      #     ELASTICSEARCH_URL: http://es01:9200
-      #     ELASTICSEARCH_HOSTS: '["http://es01:9200"]'
