@@ -23,3 +23,7 @@ logging:
       jaegertracing: DEBUG
 #  file:
 #    name: /dev/github/lab-observability/logs/ms-animal.log
+
+application:
+  elk:
+    url: ${ES_HOSTS:http://elastic:changeme@localhost:9200/_bulk}

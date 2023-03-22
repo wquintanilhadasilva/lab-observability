@@ -21,43 +21,45 @@ services:
   #   ports:
   #     - "8080:8080"
 
-  animal-name-service:
-    image: im-animal-gen
-    container_name: cnt-animal
-    ports:
-      - 9000:9000
-    environment:
-      - ES_HOSTS=es01:9200
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+  # animal-name-service:
+  #   image: im-animal-gen
+  #   container_name: cnt-animal
+  #   ports:
+  #     - 9000:9000
+  #   command: 
+  #     - filebeat -e -v -c ./filebeat.yml
+  #   environment:
+  #     - ES_HOSTS=es01:9200
+  #     - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+  #     - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+  #     - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+  #     - OPENTRACING_JAEGER_LOG_SPANS=true
 
-  name-name-service:
-    image: im-name-gen
-    container_name: cnt-name
-    ports:
-      - 8080:8080
-    environment:
-      - ES_HOSTS=es01:9200
-      - SCIENTIST_SERVICE_PREFIX_URL=http://scientist-name-service:8090
-      - ANIMAL_SERVICE_PREFIX_URL=http://animal-name-service:9000
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+  # name-name-service:
+  #   image: im-name-gen
+  #   container_name: cnt-name
+  #   ports:
+  #     - 8080:8080
+  #   environment:
+  #     - ES_HOSTS=es01:9200
+  #     - SCIENTIST_SERVICE_PREFIX_URL=http://scientist-name-service:8090
+  #     - ANIMAL_SERVICE_PREFIX_URL=http://animal-name-service:9000
+  #     - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+  #     - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+  #     - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+  #     - OPENTRACING_JAEGER_LOG_SPANS=true
 
-  scientist-name-service:
-    image: im-scientist-gen
-    container_name: cnt-scientist
-    ports:
-      - 8090:8090
-    environment:
-      - ES_HOSTS=es01:9200
-      - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
-      - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
-      - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
-      - OPENTRACING_JAEGER_LOG_SPANS=true
+  # scientist-name-service:
+  #   image: im-scientist-gen
+  #   container_name: cnt-scientist
+  #   ports:
+  #     - 8090:8090
+  #   environment:
+  #     - ES_HOSTS=es01:9200
+  #     - OPENTRACING_JAEGER_HTTP_SENDER_URL=http://jaeger:14268/api/traces
+  #     - OPENTRACING_JAEGER_UDP_SENDER_PORT=6831
+  #     - OPENTRACING_JAEGER_UDP_SENDER_HOST=jaeger
+  #     - OPENTRACING_JAEGER_LOG_SPANS=true
 
   jaeger:
     image: jaegertracing/all-in-one:1.25
