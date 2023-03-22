@@ -27,7 +27,7 @@
         <type>tester</type>
         <index>lab-name-%date{yyyy-MM-dd}</index>
         <loggerName>es-logger</loggerName> <!-- optional -->
-        <errorLoggerName>es-error-logger</errorLoggerName> <!-- optional -->
+<!--        <errorLoggerName>es-error-logger</errorLoggerName> &lt;!&ndash; optional &ndash;&gt;-->
         <authentication class="com.internetitem.logback.elasticsearch.config.BasicAuthentication" /> <!-- optional -->
         <properties>
             <property>
@@ -73,11 +73,14 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="org.springframework.web" level="DEBUG"/>
+    <logger name="org.springframework.web" level="INFO"/>
 
-    <logger name="com.oobj.obs.name" additivity="false" level="DEBUG">
+    <logger name="com.oobj.obs.name" additivity="false" level="INFO">
         <appender-ref ref="SAVE-TO-FILE" />
         <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="com.oobj.obs.name" additivity="false" level="INFO">
         <appender-ref ref="ELASTIC" />
     </logger>
 

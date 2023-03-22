@@ -20,12 +20,17 @@ public class NameResource {
 	
 	@GetMapping(path = "/random")
 	public String name() throws Exception {
-		log.debug("Início da requisição");
-		String animal = animalServiceClient.randomAnimalName();
-		String scientist = scientistServiceClient.randomScientistName();
-		String name = toKebabCase(scientist) + "-" + toKebabCase(animal);
-		log.debug("Término da requisição [{}] - [{}]", animal, scientist);
-		return name;
+		try {
+			log.debug("Início da requisição");
+			String animal = animalServiceClient.randomAnimalName();
+			String scientist = scientistServiceClient.randomScientistName();
+			String name = toKebabCase(scientist) + "-" + toKebabCase(animal);
+			log.debug("Término da requisição [{}] - [{}]", animal, scientist);
+			return name;
+		} catch (Exception ex) {
+			log.error("Erro ao obter nomes.", ex);
+			throw ex;
+		}
 	}
 
 }
