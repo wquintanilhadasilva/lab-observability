@@ -1,0 +1,42 @@
+filebeat.inputs:
+
+- type: log
+  enabled: true  
+  fields:
+    type: "name_logs"
+  paths:
+    - /logs/app.log
+  processors:
+    - add_docker_metadata: ~
+  exclude_lines: ['^\\s*$']
+  multiline:
+    match: after
+    negate: true
+
+# ======================= Elasticsearch template setting =======================
+
+setup.template.settings:
+  index.number_of_shards: 1
+  #index.codec: best_compression
+  #_source.enabled: false
+
+setup.ilm.enabled: false
+setup.template.name: "lab-%{[fields.type]:other}"
+setup.template.pattern: "lab-%{[fields.type]:other}-*"
+
+# ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: '${ES_HOST:localhost:9200}'
+  protocol: '${ES_PROTOCOL:http}'
+  index: "lab-%{[fields.type]:other}-%{+yyyy.MM.dd}"
+  username: '${ES_USERNAME:elastic}'
+  password: '${ES_PASSWORD:changeme}'
+
+# ================================= Processors =================================
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~

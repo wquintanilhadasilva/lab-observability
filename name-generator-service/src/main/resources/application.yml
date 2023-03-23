@@ -67,10 +67,9 @@ spring:
 
 logging:
   level:
+    com.oobj.obs.name: DEBUG
     io:
       jaegertracing: DEBUG
-#  file:
-#    name: /dev/github/lab-observability/logs/ms-name.log # C:\dev\github\lab-observability\logs\ms-name.log
 
 application:
   elk:

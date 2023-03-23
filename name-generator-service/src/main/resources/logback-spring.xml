@@ -1,87 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <springProperty name="applicationName" source="spring.application.name"/>
-    <springProperty name="activeProfile" source="spring.profiles.active"/>
-    <springProperty name="elkProtocol" source="application.elk.protocol"/>
-    <springProperty name="elkHost" source="application.elk.url"/>
-    <springProperty name="elkPort" source="application.elk.port"/>
-    <springProperty name="elkUser" source="application.elk.user"/>
-    <springProperty name="elkPwd" source="application.elk.pwd"/>
-
-    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./logs/application.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern> %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n </Pattern>
-        </encoder>
-    </appender>
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern> %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n </pattern>
         </encoder>
     </appender>
 
-    <appender name="ELASTIC" class="com.internetitem.logback.elasticsearch.ElasticsearchAppender">
-        <url>${elkProtocol}://${elkUser}:${elkPwd}@${elkHost}:${elkPort}/_bulk</url>
-        <type>tester</type>
-        <index>lab-name-%date{yyyy-MM-dd}</index>
-        <loggerName>es-logger</loggerName> <!-- optional -->
-<!--        <errorLoggerName>es-error-logger</errorLoggerName> &lt;!&ndash; optional &ndash;&gt;-->
-        <authentication class="com.internetitem.logback.elasticsearch.config.BasicAuthentication" /> <!-- optional -->
-        <properties>
-            <property>
-                <name>ambiente</name>
-                <value>${activeProfile}</value>
-            </property>
-            <property>
-                <name>service</name>
-                <value>${applicationName}</value>
-            </property>
-            <property>
-                <name>host</name>
-                <value>${HOSTNAME}</value>
-                <allowEmpty>false</allowEmpty>
-            </property>
-            <property>
-                <name>severity</name>
-                <value>%level</value>
-            </property>
-            <property>
-                <name>thread</name>
-                <value>%thread</value>
-            </property>
-            <property>
-                <name>stacktrace</name>
-                <value>%ex</value>
-            </property>
-            <property>
-                <name>logger</name>
-                <value>%logger</value>
-            </property>
-        </properties>
-        <headers>
-            <header>
-                <name>Content-Type</name>
-                <value>application/json</value>
-            </header>
-        </headers>
+    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/app.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern> %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n </Pattern>
+        </encoder>
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="SAVE-TO-FILE" />
         <appender-ref ref="STDOUT" />
     </root>
 
     <logger name="org.springframework.web" level="INFO"/>
 
-    <logger name="com.oobj.obs.name" additivity="false" level="INFO">
-        <appender-ref ref="SAVE-TO-FILE" />
+    <logger name="com.oobj.obs.name" additivity="false" level="DEBUG">
         <appender-ref ref="STDOUT" />
-    </logger>
-
-    <logger name="com.oobj.obs.name" additivity="false" level="INFO">
-        <appender-ref ref="ELASTIC" />
+        <appender-ref ref="SAVE-TO-FILE" />
     </logger>
 
 </configuration>
