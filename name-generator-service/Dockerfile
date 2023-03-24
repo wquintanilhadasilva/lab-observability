@@ -6,7 +6,8 @@ RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.
 
 ADD filebeat.yml /etc/filebeat/filebeat.yml
 RUN chmod go-w /etc/filebeat/filebeat.yml
-# RUN service filebeat start
+
+#CMD service filebeat start
 
 FROM base
 # Define um usuário diferente de root para rodar a aplicação. Medida de segurança indispensável!
@@ -26,6 +27,8 @@ COPY /target/name-generator-service-*.jar app.jar
 
 # Define o usuário em execução
 # USER appuser
+
+
 
 EXPOSE 8080
 
