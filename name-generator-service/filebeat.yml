@@ -1,17 +1,17 @@
 filebeat.inputs:
-
-- type: log
-  enabled: true  
+- type: filestream    
+  enabled: true
   fields:
-    type: "name_logs"
+    type: "name"
   paths:
     - /logs/app.log
-  processors:
-    - add_docker_metadata: ~
   exclude_lines: ['^\\s*$']
-  multiline:
-    match: after
-    negate: true
+  parsers:
+  - multiline:
+     type: pattern
+     pattern: '^INFO\s+\| jvm 1\s+\| [0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3} \| \['
+     negate: true
+     match: after
 
 # ======================= Elasticsearch template setting =======================
 
@@ -29,7 +29,7 @@ output.elasticsearch:
   # Array of hosts to connect to.
   hosts: '${ES_HOST:localhost:9200}'
   protocol: '${ES_PROTOCOL:http}'
-  index: "lab-%{[fields.type]:other}-%{+yyyy.MM.dd}"
+  index: "lab-%{[fields.type]:other}"
   username: '${ES_USERNAME:elastic}'
   password: '${ES_PASSWORD:changeme}'
 

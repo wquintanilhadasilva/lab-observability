@@ -16,6 +16,7 @@
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="SAVE-TO-FILE" />
     </root>
 
     <logger name="org.springframework.web" level="INFO"/>
