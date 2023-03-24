@@ -4,23 +4,31 @@ FROM openjdk:11.0-jre as filebeat
 RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.13.0-amd64.deb && \
     dpkg -i filebeat-7.13.0-amd64.deb
 
-ADD filebeat.yml /etc/filebeat/filebeat.yml
-RUN chmod go-w /etc/filebeat/filebeat.yml
+# RUN chmod go-w /etc/filebeat/filebeat.yml
 
 #CMD service filebeat start
 
 # Instala o metricbeat
-FROM filebeat as base
+FROM filebeat as metricbeat
 RUN curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-oss-7.13.0-amd64.deb && \
     dpkg -i metricbeat-oss-7.13.0-amd64.deb
 
+FROM metricbeat as base-cfg
+
+ADD filebeat.yml /etc/filebeat/filebeat.yml
 ADD metricbeat.yml /etc/metricbeat/metricbeat.yml
+ADD linux.yml /etc/metricbeat/modules.d/linux.yml
+RUN rm -f /etc/metricbeat/modules.d/linux.yml.disabled
+
+RUN chmod go-w /etc/filebeat/filebeat.yml
 RUN chmod go-w /etc/metricbeat/metricbeat.yml
+RUN chmod go-w /etc/metricbeat/modules.d/linux.yml
+
 
 # Habilita a coleta de métricas para o linux
-RUN metricbeat modules enable linux
+#RUN metricbeat modules enable linux
 
-FROM base
+FROM base-cfg
 # Define um usuário diferente de root para rodar a aplicação. Medida de segurança indispensável!
 # RUN useradd -ms /bin/bash appuser
 # WORKDIR /home/appuser
